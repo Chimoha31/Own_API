@@ -36,7 +36,7 @@ app.get("/api/customers/:id", (req, res) => {
  res.send(customer);
 });
 
-//(POSTメソッド)データを送信(作成)してみよう
+//(POSTメソッド)データを送信(作成)
 app.post("/api/customers", (req, res) => {
   const customer = {
     title: req.body.title,
@@ -44,4 +44,20 @@ app.post("/api/customers", (req, res) => {
   };
   customers.push(customer);
   res.send(customers);
-})
+});
+
+// (PUTメソッド)データの更新
+app.put("/api/customers/:id", (req, res) => {
+  const customer = customers.find((c) => c.id === parseInt(req.params.id));
+  customer.title = req.body.title;
+  res.send(customer);
+});
+
+// (Deleteメソッド)データを削除
+app.delete("/api/customers/:id", (req, res) => {
+  const customer = customers.find((c) => c.id === parseInt(req.params.id));
+  
+  const index = customers.indexOf(customer);
+  customers.splice(index, 1);
+  res.send(customer);
+});
